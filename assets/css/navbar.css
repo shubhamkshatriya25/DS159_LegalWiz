@@ -1,0 +1,47 @@
+/* Navbar Styling */
+.navbar{
+    background-color: #253858;
+}
+.nav-item:hover{
+    background-color: #1eb47c;
+}
+  
+.nav-item:active{
+    background-color: #1eb47c;
+}
+  
+.dropdown{
+    float: right;
+    right: 10px;
+    position: absolute;
+}
+  
+.dropdown-menu{
+    left: -115px;
+    position: absolute;
+    background-color: #253858;
+}
+  
+.dropdown-item{
+    color: white;
+}
+
+.dropdown-item:hover{
+    background-color: #1eb47c;
+}
+  
+@media (max-width: 768px){
+    .dropdown{
+      /* float: left; */
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .nav-item:hover{
+        background-color: none;
+    }
+
+    .nav-item:active{
+        background-color: none;
+    }
+}

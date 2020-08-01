@@ -1,0 +1,215 @@
+
+body{
+    font-family: 'Montserrat',sans-serif;
+}
+
+
+/* Intro Section */
+.jumbotron{
+    width: 100%;
+    height: 110vh;
+    /* background: #01579B; */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
+    url(../img/imageonline-co-blackandwhiteimage.png);
+    background-size: cover;
+    background-repeat: no-repeat; 
+}
+
+.jumbotron .intro-content{
+    margin-top: 10rem;
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%); */
+    text-align: center;
+    padding: 1rem;
+}
+.jumbotron .welcome {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: -10px;
+
+}
+
+.jumbotron .intro-content .tag {
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: white;
+}
+
+.jumbotron .intro-content button{
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: none;
+    background-color: #1eb47c;
+    color: white;
+    border-radius: 5px;
+    transition: 0.35s;
+}
+.jumbotron .intro-content button:hover{
+    background-color: #253858;
+}
+.check h2 .type {
+    border-bottom: 5px solid #1eb47c;
+}
+.check h2{
+    margin-top: -10px;
+    color: white;
+    padding: 0.2em 0;
+    font-size: 30px;
+    font-weight: normal;
+}
+#intro .lappy{
+    width:60%;
+    height: 100%;
+    margin: -200px auto 0;
+    
+}
+@media (max-width: 768px)
+{
+    .jumbotron {
+        height: 90vh;
+    }
+    #intro .lappy {
+        width: 80%;
+        height: 100%;
+        margin: -130px auto 0;
+    }
+}
+#intro .lappy img{
+    width:100%;
+    height: 100%;
+}
+
+#feature {
+    padding: 0 100px 20px;
+}
+#feature .title{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: black;
+}
+#feature .card{
+    padding: 20px 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 0;
+    transition: all 0.35s ease-in-out;
+}
+#feature .card .icon{
+    display: block;
+    margin: 0 auto;
+    font-size: 30px;
+    border: 1px solid #1eb47c;
+    padding: 6px 12px;
+    border-radius: 50%;
+    color: #1eb47c;
+    transition: all 0.35s ease-in-out;
+}
+#feature .card .feature-name{
+    margin-top: 15px;
+    font-size: 20px;
+    color: black;
+    font-weight: 600;
+    text-align: center;
+}
+#feature .card .feature-desc,#feature .desc{
+    font-size: 15px;
+    color: #505050;
+    font-weight: 400;
+    text-align: justify;
+    padding: 0 15px;
+
+}
+
+#feature .card:hover{
+    background: white;
+    box-shadow: 1px 4px 8px #505050;
+    border-bottom: 10px solid #1eb47c;
+}
+#feature .card:hover .icon{
+    background: #1eb47c;
+    color: white;
+}
+@media (max-width: 800px){
+    #feature{
+        padding: 20px 20px;
+    }
+}
+#email{
+    margin-top: 60px;
+}
+#email .jumbotron{
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url(../img/gavel-auction-hammer-justice.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#email .jumbotron button{
+    border: 1px solid white;
+    margin: 2rem auto 0;
+    display: block;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    background: transparent;
+    
+}
+#email .jumbotron a{
+    text-decoration: none;
+}
+#email .jumbotron p{
+    color: white;
+    padding: 0px 250px;
+    font-size: 1.7rem;
+    font-weight: 500;
+    text-align: center;
+}
+@media (max-width: 800px) {
+    #email .jumbotron p {
+        padding: 0 20px;
+    }
+}
+
+#carousel{
+    padding: 50px 350px 90px;
+}
+.carousel-control-prev{
+    margin-left: 300px;
+    
+}
+.carousel-control-next{
+    margin-right: 300px
+}
+@media (max-width: 800px) {
+    #carousel{
+        padding: 30px 20px 50px;
+    }
+    .carousel-control-prev{
+        margin-left: 10px;   
+    }
+    .carousel-control-next{
+        margin-right: 10px
+    }
+}
+@media (min-width: 800px) and (max-width:1180px) {
+    #carousel{
+        padding: 30px 150px 50px;
+    }
+    .carousel-control-prev{
+        margin-left: 100px;   
+    }
+    .carousel-control-next{
+        margin-right: 100px
+    }
+}
+

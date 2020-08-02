@@ -1,0 +1,147 @@
+{% extends 'index.html'%}
+{% load static %}
+{% block title %}About | legal Wiz{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'assets/css/about.css' %}">
+<!--Intro Section -->
+<div id="intro">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="intro-content">
+            <p>legal WIZ</p>
+        </div>
+    </div>
+</div>
+
+<!-- about section -->
+<section id="about">
+    <p class="section-title">About Us</p>
+    <div class="container">
+        <p>Legal Wiz is a secure,user-friendly Court Case Management System. This system would save
+            lot of time of advocates as well as plaintiff/client.It's a cloud base software thus available for all
+            the users for 24x7. You just need an
+            Internet connection, a device and rest will be taken care by the system.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid sapiente fugit impedit saepe,
+            atque harum fuga labore maxime laboriosam deserunt corrupti beatae error facere natus, hic, eveniet
+            distinctio eum vero? Dolorum maxime velit at? Possimus soluta, minima sint, ipsam numquam maxime
+            excepturi omnis ad in, nesciunt eius dolorum iure facere.</p>
+    
+    <div class="row" style="margin-top: 50px;">
+        <div class="col-lg-4 col-md-4">
+            <div class="card">
+                <p class="icon"><i class="fas fa-bullseye"></i></p>
+                <p class="caption">Our Mission</p>
+                <p>To make the functional areas in Judicial Service efficiently and effectively on the digital platform.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <div class="card">
+                <p class="icon"><i class="fas fa-eye"></i></p>
+                <p class="caption">Our Vision</p>
+                <p>To control and allow complete registration of all the court cases and tracking of current status of cases;
+                    to enhance the access of department of any organization easily.
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <div class="card">
+                <p class="icon"><i class="fas fa-suitcase"></i></p>
+                <p class="caption">Our Values</p>
+                <p>Confidentiality, Sustainability, Team-work, Security, Service.</p>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<!-- team Section -->
+<section id="team" style="margin-bottom: 50px;">
+    <p class="section-title">The Team</p>
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <img src="{% static 'assets/img/palak.jpeg' %}">
+                <div class="box-content">
+                    <h3 class="title">Palak Patel</h3>
+                    <span class="post">Web Developer</span>
+                    <ul class="social">
+                        <li><a href="#"><i class="fas fa-bullseye"></i></a></li>
+                        <li><a href="#"><i class="fas fa-suitcase"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <img src="{% static 'assets/img/vrusha.jpg' %}">
+                <div class="box-content">
+                    <h3 class="title">Vrusha Parikh</h3>
+                    <span class="post">Web Developer</span>
+                    <ul class="social">
+                        <li><a href="#"><i class="fas fa-bullseye"></i></a></li>
+                        <li><a href="#"><i class="fas fa-suitcase"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <img src="{% static '' %}assets/img/khushali.jpeg">
+                <div class="box-content">
+                    <h3 class="title">Khushali Mehta</h3>
+                    <span class="post">Web Developer</span>
+                    <ul class="social">
+                        <li><a href="#"><i class="fas fa-bullseye"></i></a></li>
+                        <li><a href="#"><i class="fas fa-suitcase"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <img src="{% static '' %}assets/img/jay.jpg">
+                <div class="box-content">
+                    <h3 class="title">Jay Shah</h3>
+                    <span class="post">Web Developer</span>
+                    <ul class="social">
+                        <li><a href="#"><i class="fas fa-bullseye"></i></a></li>
+                        <li><a href="#"><i class="fas fa-suitcase"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <img src="{% static '' %}assets/img/khanjan.jpeg">
+                <div class="box-content">
+                    <h3 class="title">Khanjan Vaidhya</h3>
+                    <span class="post">Web Developer</span>
+                    <ul class="social">
+                        <li><a href="#"><i class="fas fa-bullseye"></i></a></li>
+                        <li><a href="#"><i class="fas fa-suitcase"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <img src="{% static '' %}assets/img/shubham.jpg">
+                <div class="box-content">
+                    <h3 class="title">Shubham Kshatriya</h3>
+                    <span class="post">Web Developer</span>
+                    <ul class="social">
+                        <li><a href="#"><i class="fas fa-bullseye"></i></a></li>
+                        <li><a href="#"><i class="fas fa-suitcase"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+     
+{% endblock %}
+

@@ -1,0 +1,463 @@
+{% extends 'Nodal_Officer/Dashboard.html'%}
+{% load static %}
+{% block title %}Add Case | legal Wiz{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'assets/css/addcase.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-grey.css">
+
+
+
+<body>
+    <form name="case_form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <section id="caseform" style="margin-top: 2rem;">
+            <div class="form" style="margin: 2rem;">
+
+                <h2 style="text-align: center; margin-top:30px;font-weight:bold">Add a Case</h2>
+                <p style="text-align: center;"> Fill the following details to create a new case</p>
+                <hr>
+
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <div class="drop">
+                            <label for="typeofcourt">
+                                Type of Court<mark class="red" style="background-color: white;">*</mark> :
+                            </label>
+                            <select name="typeofcourt" class="custom-select" required>
+                                <option value="" selected>------select one value------</option>
+                                <option value="Supreme Court">Supreme Court</option>
+                                <option value="Junior Division Court">Junior Division Court</option>
+                                <option value="Senior Division Court">Senior Division Court</option>
+                                <option value="Consumer Court">Consumer Court</option>
+                                <option value="Family Court">Family Court</option>
+                                <option value="Sale Tax Tribunal">Sale Tax Tribunal</option>
+                                <option value="Additional District Judge Court">Additional District Judge Court</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <div class="drop">
+                            <label for="typeofcase">
+                                Type of Case<mark class="red" style="background-color: white;">*</mark> :
+                            </label>
+                            <select name="typeofcase" class="custom-select" required>
+                                <option value="" selected>------select one value------</option>
+                                <option value="Criminal case">Criminal Case</option>
+                                <option value="Property case">Property Case</option>
+                                <option value="Divorse case">Divorse Case</option>
+                                <option value="Civil case">Civil Case</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="validationDefault01">Case Number<mark class="red"
+                                style="background-color: white;">*</mark>:</label>
+                        <input class="form-control" id="validationDefault01" name="casenumber" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3">
+                        <label for="validationDefault01">Case Registration Date<mark class="red"
+                                style="background-color: white;">*</mark>:</label>
+                        <input class="form-control" type="date" name="caseregistrationdate" required>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="drop">
+                            <label for="courtname">
+                                Court Name<mark class="red" style="background-color: white;">*</mark>:
+                            </label>
+                            <select name="courtname" class="custom-select" required>
+                                <option value="" selected>----------------select one value---------------</option>
+                                <option value="BMC High Court">BMC High Court</option>
+                                <option value="Junior Court">Junior Court</option>
+                                <option value="NyayMandir">NyayMandir</option>
+                                <option value="Lal Court">Lal Court</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="drop">
+                            <label for="subjectmatter">
+                                Subject Matter<mark class="red" style="background-color: white;">*</mark>:
+                            </label>
+                            <select name="subjectmatter" class="custom-select" required>
+                                <option value="" selected>--------------------------------------------select one
+                                    value--------------------------------------------</option>
+                                <option value="Cheque Bounce Matter">Cheque Bounce Matter</option>
+                                <option value="Unauthorized Construction">Unauthorized Construction</option>
+                                <option value="Property Tax Matter">Property Tax Matter</option>
+                                <option value="Estabhlishment Matter">Estabhlishment Matter</option>
+                                <option value="Advertisement Matter">Advertisement Matter</option>
+                                <option value="A.F.A Act">A.F.A Act</option>
+                                <option value="Against Disimisal 106 Appointment Matter">Against Disimisal 106
+                                    Appointment Matter</option>
+                                <option value="Public Health Related Matter">Public Health Related Matter</option>
+
+
+                            </select>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <label for="validationDefault01">LC Number<mark class="red"
+                                style="background-color: white;">*</mark>:</label>
+                        <input class="form-control" id="validationDefault01" name="lcnumber" required>
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-2">
+                        <div class="drop">
+                            <label for="section">
+                                Section<mark class="red" style="background-color: white;">*</mark>:
+                            </label>
+                            <select name="section" class="custom-select" required>
+                                <option value="" selected>------select one value-------</option>
+                                <option value="148">148</option>
+                                <option value="152">152</option>
+                                <option value="160">160</option>
+                                <option value="180">180</option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-3">
+                        <label>Previous Case Number : </label>
+                        <input class="form-control" name="pcnumber">
+                    </div>
+                    <div class="col-md-3">
+                        <label "><mark class=" yellow" style="background-color: white;">(previous case no. for
+                            appeal,contempt and review petition
+                            )</mark> </label>
+
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3">
+                        <label for="validationDefault01">Case Receiving Date:</label>
+                        <input class="form-control" type="date" name="casereceivingdate">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault01">Respondent Appearance Date:</label>
+                        <input class="form-control" type="date" name="appearancedateofrespondent">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault01">PWC Due Date:</label>
+                        <input class="form-control" type="date" name="pwcduedate">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault01">Due Date of Filling Reply :</label>
+                        <input class="form-control" type="date" name="duedateoffilling">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <label for="validationDefault01">Title<mark class="red"
+                                style="background-color: white;">*</mark>:</label>
+                        <input class="form-control" type="text" name="title" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="validationDefault01">Prayer<mark class="red"
+                                style="background-color: white;">*</mark>:</label>
+                        <input class="form-control" type="text" name="prayer" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3">
+                        <label>Filed by Corporation </label>
+                        <select name="filedbycorporation" class="custom-select">
+                            <option value="" selected>-----</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Stamp No. :</label>
+                        <input class="form-control" type="text" name="stampno">
+                    </div>
+                    <div class="col-md-3">
+                        <label>Respondent First Appearance :</label>
+                        <input class="form-control" type="date" name="firstappearanceofpeti">
+                    </div>
+                    <div class="col-md-3">
+                        <label>Petitioner Counsel Name :</label>
+                        <input class="form-control" type="text" name="petitionercounselname">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3">
+                        <label>Represented by Co-ordinator :</label>
+                        <input class="form-control" type="text" name="representedcoordinator">
+
+                    </div>
+                    <div class="col-md-3">
+                        <label>Next Hearing Date:</label>
+                        <input class="form-control" type="date" name="nexthearingdate">
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <table style="width: 100%;text-align: center;">
+                            <tr class="table-active">
+                                <th>Petitioner/Plantiff/Appellant/Applicant</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <table class="table">
+
+                        <tr class="table-active">
+                            <th style="width: 10%;">Is Govt. Employee?</th>
+                            <th style="width: 18%;">Name<mark class="tabred" style="background-color:#DADADA">*</mark>
+                            </th>
+                            <th style="width: 35%;">Address</th>
+                            <th style="width: 15%;">Contact</th>
+                            <th style="width: 15%;">Department</th>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="app_isemployee" class="custom-select">
+                                    <option value="" selected>-----</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </td>
+                            <td><input class="form-control" type="text" name="app_Name" required></td>
+                            <td><input class="form-control" type="text" name="app_Address"></td>
+                            <td><input class="form-control" type="number" name="app_Contact"></td>
+                            <td><select name="app_dept" class="custom-select">
+                                    <option value="" selected>--select one value--</option>
+                                    <option value="Central Railway">Central Railway</option>
+                                    <option value="Ministry of Agriculture">Ministry of Agriculture</option>
+                                    <option value="Urban Development(UD)">Urban Development(UD)</option>
+                                    <option value="Forest Department">Forest Department</option>
+                                    <option value="Department of Home">Department of Home</option>
+                                    <option value="Ministry of Textile">Ministry of Textile</option>
+
+                                </select>
+                            </td>
+
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <table style="width: 100%;text-align: center;">
+                            <tr class="table-active">
+                                <th>Respondent/Defendant/Non-Applicant</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <table class="table">
+
+                        <tr class="table-active">
+                            <th style="width: 10%;">Is Govt. Employee?</th>
+                            <th style="width: 18%;">Name<mark class="tabred" style="background-color:#DADADA">*</mark>
+                            </th>
+                            <th style="width: 35%;">Address</th>
+                            <th style="width: 15%;">Contact</th>
+                            <th style="width: 15%;">Department</th>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="res_isemployee" class="custom-select">
+                                    <option value="" selected>-----</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </td>
+                            <td><input class="form-control" type="text" name="res_Name" required></td>
+                            <td><input class="form-control" type="text" name="res_Address"></td>
+                            <td><input class="form-control" type="number" name="res_Contact"></td>
+                            <td><select name="res_dept" class="custom-select">
+                                    <option value="" selected>--select one value--</option>
+                                    <option value="Central Railway">Central Railway</option>
+                                    <option value="Ministry of Agriculture">Ministry of Agriculture</option>
+                                    <option value="Urban Development(UD)">Urban Development(UD)</option>
+                                    <option value="Forest Department">Forest Department</option>
+                                    <option value="Department of Home">Department of Home</option>
+                                    <option value="Ministry of Textile">Ministry of Textile</option>
+
+                                </select>
+                            </td>
+
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <table style="width: 100%;text-align: center;">
+                            <tr class="table-active">
+                                <th>Assigned Department</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <table class="table">
+
+                        <tr class="table-active">
+                            <th style="width: 10%;">Is Primary Dept?</th>
+                            <th style="width: 18%;">Department<mark class="tabred"
+                                    style="background-color:#DADADA">*</mark></th>
+                            <th style="width: 35%;">Assigned To<mark class="tabred"
+                                    style="background-color:#DADADA">*</mark></th>
+                            <th style="width: 15%;">Assigned on</th>
+                            <th style="width: 15%;">Date of Receipt of PWC</th>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="ass_isprimarydept" class="custom-select">
+                                    <option value="" selected>-----</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </td>
+                            <td><input class="form-control" type="text" name="ass_Department" required></td>
+                            <td><input class="form-control" type="text" name="ass_Assignedto" required></td>
+                            <td><input class="form-control" type="date" name="ass_Assignedon"></td>
+                            <td><input class="form-control" type="date" name="ass_Datereceiptpwc">
+                            </td>
+
+                        </tr>
+
+                    </table>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-7">
+                        <label for="validationDefault01">Remark :</label>
+                        <textarea class="form-control" rows="5" id="comment" name="remark"></textarea>
+
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <table style="width: 100%;text-align: center;">
+                            <tr class="table-active">
+                                <th>Assign Standing Counsel</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3">
+                        <label for="validationDefault01">Standing Counsel<mark class="red"
+                                style="background-color:white">*</mark>:</label>
+                        <input class="form-control" type="text" name="standingcounsel" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault01">Assigned On:</label>
+                        <input class="form-control" type="date" name="counselassignedon">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault01">Vakalatnama Filing Date:</label>
+                        <input class="form-control" type="date" name="vakalatnamafilingdate">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="validationDefault01"> Date of Filling Reply:</label>
+                        <input class="form-control" type="date" name="dateoffiling">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <table style="width: 100%;">
+                            <tr class="table-active">
+                                <th>Is Senior Counsel Required ?
+                                    <select name="isseniorcounselrequired" class="custom-select">
+                                        <option value="" selected>-----</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <table style="width: 100%;">
+                            <tr class="table-active">
+                                <th>Upload</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-1">
+                        <input type="file" name="file" />
+                    </div>
+                </div>
+                <div class="buttonclass" style=" display: flex; justify-content: center; ">
+                    <button type="submit" name="reset" value="reset" class="btn" style="
+                    background-color:#253858;margin-right: 1rem;
+                    color: white;">RESET</button>
+                    <button type="submit" name="save" value="SAVE" class="btn" style="
+                    background-color:#253858;
+                    color: white;">SAVE</button>
+
+                </div>
+
+            </div>
+
+
+
+            <h6 style="margin-left: 3rem;"><mark class="red-man" style="background-color:white; ">*Mandatory
+                    Field</mark></h6>
+        </section>
+
+
+
+
+
+
+    </form>
+
+     <div class="button" style=" display: flex; justify-content: center; ">
+        <a href="/Dashboard/cases"><button type="submit" name="cancel" value="cancel" class="btn"
+                style="float: right;;background-color:#253858; color: white; ">BACK </button></a>
+    </div>
+    
+        
+    
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
+
+
+    {% endblock %}

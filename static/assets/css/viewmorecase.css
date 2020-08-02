@@ -1,0 +1,55 @@
+#caseform{
+    font-size: 1.2rem;
+   
+    font-weight: 400;
+    
+
+}
+
+mark.bold{
+    background-color: white;
+    font-weight:700;
+}
+
+.form-body {
+    background-color: lightgrey;
+    border: 2px solid rgb(114, 110, 110);
+    padding: 10px;
+    margin: 20px;
+}
+
+
+
+.form-row {
+    padding: 5px;
+    align-content: center;
+    
+
+}
+mark.red{
+    background-color: lightgrey;
+    color:#ff0000;
+}
+mark.tabred{
+    background-color:#B4B4B4;
+    color:#ff0000;
+}
+mark.yellow{
+    background-color:lightgrey;
+    color:darkolivegreen;
+
+}
+mark.red-man{
+    background-color:#ECECEC;
+    color:#ff0000;
+
+}
+mark.ans{
+    background-color:whitesmoke;
+}
+
+  
+
+
+
+

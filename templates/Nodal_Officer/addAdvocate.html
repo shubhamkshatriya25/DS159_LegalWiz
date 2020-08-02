@@ -1,0 +1,44 @@
+{% extends 'Nodal_Officer/Dashboard.html'%}
+{% load static %}
+{% block title %}Add Advocate | legal Wiz{% endblock %}
+{% block content %}
+<!-- Page Content -->
+<div class="container-fluid" style="font-family: 'Montserrat',sans-serif;">
+  <h3 style="text-align: center;margin-top: 30px;font-weight:bold">Add New Advocate</h3>
+  <p style="text-align: center;"> Fill following details to continue</p>
+  <div class="row">
+    <div class="col-md-6" style="margin: 20px auto;">
+      <form method="POST" action="{% url 'createAdvocate' %}">
+        {% csrf_token %} 
+        <div class="form-group">
+          <label for="Lawyer_name">Name</label>
+          <input type="text" class="form-control" id="Lawyer_name" placeholder="Enter lawyer's name" name="LawyerName"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="Lawyer_email">Email Address</label>
+          <input type="email" class="form-control" id="Lawyer_email" aria-describedby="emailHelp"
+            placeholder="Enter lawyer's email" name="LawyerEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="Lawyer_contact">Contact Number</label>
+          <input type="text" class="form-control" id="Lawyer_contact" placeholder="Enter lawyer's number"
+            name="LawyerContact" required>
+        </div>
+        <div class="form-group">
+          <label for="Lawyer_workarea">Work Area</label>
+          <input type="text" class="form-control" id="Lawyer_workarea"
+            placeholder="Enter lawyer's workplace(eg: Civil,Criminal,etc)" name="LawyerWorkarea" required>
+        </div>
+        <div class="form-group">
+          <label for="Lawyer_aor">AOR Number</label>
+          <input type="text" class="form-control" id="Lawyer_aor" placeholder="Enter lawyer's AOR number"
+            name="LawyerAOR" required>
+        </div>
+        <button type="submit" class="btn"
+          style="margin: 40px auto 100px;display: block;background:#253858;color:white">Add Advocate to Database</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

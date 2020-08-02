@@ -1,0 +1,24 @@
+.form-row{
+    margin: 0 20px;
+}
+
+.last{
+    margin-left: 20px;
+    margin-top: 9px;
+}
+
+.field-label{
+    margin-top: 9px;
+    margin-bottom: 5px;
+}
+
+.btn{
+    background-color: #1eb47c;
+    border-color: #1eb47c;
+    color: white;
+}
+
+.btn:hover{
+    background-color: #1eb47c;
+    color: white;
+} 

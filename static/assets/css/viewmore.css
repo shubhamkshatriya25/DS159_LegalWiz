@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+
+
+.viewmore  {
+	/* width: 18rem; 
+	display: inline-block; 
+	margin: 1rem; 
+	border-radius: 5%;
+	box-shadow: 8px 8px 15px black; */
+
+	padding-left: 5rem;
+    padding-right: 5rem;
+    /* padding-top: 9rem; */
+    padding-bottom: 5rem;
+}
+ 
+
+.card{
+	/* width: 18rem; 
+	display: inline-block; 
+	margin-top : 1.5rem;
+	background-clip: border-box;
+	border-radius: .25rem;
+	border: 2px solid black
+	 */
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 2px solid black;
+	box-shadow: 8px 8px 15px black; 
+	margin: 3rem;
+	border-radius: .3rem;
+}
+
+
+.btn-outline-primary{
+    background-color: #1eb47c;
+	border-color: #1eb47c;
+	color: #fff
+    
+}
+
+.btn-outline-primary:hover{
+	color: black;
+	background-color: #fff;
+    border-color: #1eb47c;
+}

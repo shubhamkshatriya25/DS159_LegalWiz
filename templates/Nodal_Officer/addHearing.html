@@ -9,36 +9,67 @@
     <hr>
     <div class="row">
         <div class="col-md-6" style="margin: 20px auto;">
+
+
+        <form method="post", action = "{% url 'id' %} " >
+            <div class="form-group">
+                {%  csrf_token %}
+                <input type="text" class="form-control"
+                        placeholder="Enter Case ID" name="id" required>
+                <input type="submit" value="enter">
+            </div>
+        </form>
             <form method="POST">
-                {% csrf_token %} 
+                {% csrf_token %}
+
                 <div class="form-group">
                     <label>Case Number</label>
-                    <input type="text" class="form-control"
+                    <input type="text" value="{% if data %}{{ data.case_number }}{% endif %}" class="form-control"
                         placeholder="Enter Case ID" name="caseno" required>
                 </div>
                 <div class="form-group"> 
                     <label>Case Title</label>
-                    <input type="text" class="form-control"
+                    <input type="text" value="{% if data %}{{ data.title }}{% endif %}" class="form-control"
                         placeholder="Case Title" name="casetitle">
                 </div>
                 <div class="form-group">
                     <label>Department</label>
-                    <input type="text" class="form-control"
+                    <input type="text" value="{% if data %}{{ data.app_dept }}{% endif %}" class="form-control"
                         placeholder="Enter department" name="casedpt" required>
                 </div>
                 <div class="form-group"> 
                     <label>Last Hearing Date</label>
-                    <input type='date' class="form-control" placeholder='DD/MM/YY'
+                    <input type='date' value="{% if data %}{{ data.next_hearing_date }}{% endif %}" class="form-control" placeholder='DD/MM/YY'
                         name="lastdate" style='margin: 0 auto;'>
                 </div>
                 <div class="form-group">
-                    <label">Hearing Conclusion</label>
-                    <textarea type="text" class="form-control" placeholder="Enter conclusion for the last hearing"
+                    <label>Interim Order / Final Order</label>
+                    <textarea type="text" class="form-control" placeholder="Enter order for hearing"
                         name="conclusion" wrap="hard" rows=5 cols=40 required></textarea>
                 </div>
+
+                <div class="form-group">
+                    <h6>Or</h6>
+                </div>
+
+                <div class="form-group">
+                    <label>Hearing conclusion in pdf format</label><br>
+                    <input type="file" name="file">
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select name="status" class="form-control" required>
+                        <option value="" selected>Select status</option>
+                        <option value="Closed">Closed</option>
+                        <option value="Running">Running</option>
+                    </select>
+                </div>
+
+
                 <div class="form-group">
                     <label>Next Hearing Date</label>
-                    <input type='date' class="form-control"" placeholder='DD/MM/YY'
+                    <input type='date' class="form-control" placeholder='DD/MM/YY'
                         name="nextdate" style='margin: 0 auto;'>
                 </div>
 

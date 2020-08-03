@@ -2,10 +2,19 @@
 {% load static %}
 {% block title %}Add Advocate | legal Wiz{% endblock %}
 {% block content %}
+<style>
+  hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+  }
+</style>
 <!-- Page Content -->
 <div class="container-fluid" style="font-family: 'Montserrat',sans-serif;">
   <h3 style="text-align: center;margin-top: 30px;font-weight:bold">Add New Advocate</h3>
   <p style="text-align: center;"> Fill following details to continue</p>
+  <hr>
   <div class="row">
     <div class="col-md-6" style="margin: 20px auto;">
       <form method="POST" action="{% url 'createAdvocate' %}">

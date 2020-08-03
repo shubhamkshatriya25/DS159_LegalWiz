@@ -1,0 +1,127 @@
+{% extends 'Nodal_Officer/Dashboard.html' %}
+{% load static %}
+{% block title %}Add Invoice | legal Wiz{% endblock %}
+{% block content %}
+
+<div class="container-fluid" style="font-family: 'Montserrat',sans-serif;">
+    <h2 style="text-align: center; margin-top:30px;font-weight:bold">Generate an Invoice</h2>
+    <p style="text-align: center;"> Fill the following details to create a new invoice</p>
+    <hr>
+    <div class="row">
+        <div class="col-md-6" style="margin: 20px auto;">
+            <form method="POST">
+                {% csrf_token %}
+
+
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" class="form-control" name="in_date" placeholder="DD/MM/YYYY" required>
+                </div>
+                <!-- <div class="form-group">
+                    <label>Invoice Subject</label>
+                    <input type="text" class="form-control" placeholder="Enter subject"
+                        name="in_sub" required>
+                </div> -->
+
+                <div class="form-group">
+                    <label>Invoice Subject</label>
+                    <textarea class="form-control" wrap='hard' rows='3' cols='40' name="in_sub"
+                        placeholder="Enter invoice subject" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Department</label>
+                    <select name="dept" class="form-control" required>
+                        <option value="">Select type</option>
+                        <option value="Central Railway">Central Railway</option>
+                        <option value="Ministry of Agriculture">Ministry of Agriculture</option>
+                        <option value="Urban Development(UD)">Urban Development(UD)</option>
+                        <option value="Forest Department">Forest Department</option>
+                        <option value="Department of Home">Department of Home</option>
+                        <option value="Ministry of Textile">Ministry of Textile</option>
+
+                    </select>
+                    <!--                 
+                  <input type="text" class="form-control" placeholder="Enter department"
+                      name="dept" required> -->
+                </div>
+
+                <div class="form-group">
+                    <label>Case number</label>
+                    <input type="text" class="form-control" placeholder="Case number" name="caseno" required>
+                </div>
+
+                <div class="form-group">
+                    <label>LC number</label>
+                    <input type="text" class="form-control" placeholder="LC number" name="lcno" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Advocate name</label>
+                    <input type="text" class="form-control" placeholder="Enter advocate name" name="ad_na" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Case Title</label>
+                    <input type="text" class="form-control" placeholder="Case title" name="casetitle" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="InputType">Case type</label>
+                    <input type="text" class="form-control" placeholder="Case type" name="casetype" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Particulars - amount charges</label>
+                    <textarea class="form-control" wrap='hard' rows='10' cols='40' name="in_particulars"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Total amount to be paid</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Rs.</div>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter total amount" name="in_total"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Due payment amount</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Rs.</div>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter due amount" name="in_due" required>
+                    </div>
+                </div>
+
+
+                {% if failure == True %}
+                <div class="alert alert-danger" role="alert" style="margin: 20px 0;text-align: center;">
+                    Sorry, can't able to create new invoice. Please check if you have filled the details properly.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+
+                <div class="container" style="display:flex; justify-content:center; margin-top: 2rem;">
+                    <a href="/Dashboard/invoice"><button type="submit" name="submit" value="Generate new invoice" class="btn"
+                        style="margin-right: 1rem; background:#253858;color:white">Generate new
+                        invoice</button></a>
+
+                    <button type="submit" name="clear" value="Clear Details" class="btn"
+                        style="background:#253858;color:white">Clear Details</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'Secretary/SecretaryDashboard.html'%}
+{% load static %}
+{% block title %}Add Admin | legal Wiz{% endblock %}
+{% block content %}
+<style>
+  hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+  }
+</style>
+<!-- Page Content -->
+<div class="container-fluid" style="font-family: 'Montserrat',sans-serif;">
+  <h3 style="text-align: center;margin-top: 30px;font-weight:bold">Add New Admin</h3>
+  <p style="text-align: center;"> Fill following details to continue</p>
+  <hr>
+  <div class="row">
+    <div class="col-md-6" style="margin: 20px auto;">
+      <form method="POST" action="{% url 'createAdmin' %}">
+        {% csrf_token %} 
+        <div class="form-group">
+          <label for="Adminname">Name</label>
+          <input type="text" class="form-control" id="Adminname" placeholder="Enter name" name="Adminname"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="Adminemail">Email Address</label>
+          <input type="email" class="form-control" id="Adminemail" aria-describedby="emailHelp"
+            placeholder="Enter email" name="Adminemail" required>
+        </div>
+        <div class="form-group">
+          <label for="Admincontact">Contact Number</label>
+          <input type="text" class="form-control" id="Admincontact" placeholder="Enter number"
+            name="Admincontact" required>
+        </div>
+        <div class="form-group">
+          <label for="AdminID">UserID</label>
+          <input type="text" class="form-control" id="AdminID"
+            placeholder="Enter userID" name="AdminID" required>
+        </div>
+        <div class="form-group">
+          <label for="Adminpass">Password</label>
+          <input type="password" class="form-control" id="Adminpass" placeholder="Enter password"
+            name="Adminpass" required>
+        </div>
+        <div class="form-group">
+          <label for="Admindept">Department</label>
+          <input type="text" class="form-control" id="Admindept" placeholder="Enter Department"
+            name="Admindept" required>
+        </div>
+        <div class="form-group">
+          <input type="hidden" class="form-control"
+            name="Admintype" value="Admin">
+        </div>
+        <button type="submit" class="btn"
+          style="margin: 40px auto 100px;display: block;background:#253858;color:white">Add Advocate to Database</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

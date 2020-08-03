@@ -32,8 +32,8 @@
                     <input type="text" class="form-control" placeholder="Case Number" name="caseno">
                   </div>
                   <div class="form-group col-md-4">
-                    <p class="field-label">Next Hearing Date</p>
-                    <input type="text" class="form-control" placeholder="Next Hearing Date" name="nextdate">
+                    <p class="field-label">Last Hearing Date</p>
+                    <input type="text" class="form-control" placeholder="Last Hearing Date" name="lastdate">
                   </div>
                   <div class="form-group col-md-4">
                     <p class="field-label">Case Title</p>
@@ -58,9 +58,9 @@
               <tr>
                 <th >  Case Title </th> 
                   <th> Case Number </th>
-                  <th> Next Hearing </th>
-                  <th> Status </th>
-                  <th> For full details </th>
+                  <th> Last Hearing </th>
+                  <th> Hearing Conclusion </th>
+                  <th> Next hearing </th>
               </tr>
           </thead> 
           <tbody>
@@ -76,16 +76,9 @@
             <tr>
               <td> {{ i.title }}</td>
               <td> {{ i.case_no }}</td>
+              <td> {{ i.lastHearing }}</td>
+              <td> {{ i.conclusion }}</td>
               <td> {{ i.nextHearing }}</td>
-              <td> {{ i.status }} </td>
-              <td> <form method="POST">
-                {% csrf_token %} 
-                <a href="viewhear">
-                  <button type="submit" name="view" value="{{ i.case_no }}" class="btn btn-outline-secondary">View more</button>
-                </a> 
-                </form>
-              </td>
-              
               
             </tr>
 
@@ -103,15 +96,10 @@
             <tr>
                 <td> {{ i.title }}</td>
                 <td> {{ i.case_no }}</td>
+                <td> {{ i.lastHearing }}</td>
+                <td> {{ i.conclusion }}</td>
                 <td> {{ i.nextHearing }}</td>
-                <td> {{ i.status }} </td>
-                <td> <form method="POST">
-                  {% csrf_token %} 
-                  <a href="viewhear">
-                    <button type="submit" name="view" value="{{ i.case_no }}" class="btn btn-outline-secondary">View more</button>
-                  </a> 
-                  </form>
-                </td>
+
             </tr>
 
             {% endfor %}

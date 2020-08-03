@@ -1,0 +1,76 @@
+{% extends 'Secretary/SecretaryDashboard.html'%}
+{% load static %}
+{% block title %}Advocate | legal Wiz{% endblock %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/advocate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/filterForm.css' %}">
+<!-- Page Content -->
+<div class="wrapper">
+  <div class="title">
+    <div class="bd-title">
+      <h4>Admins ({{ admins | length }})</h4>
+    </div>
+    <div class="right-content">
+      <button type="button" class="btn btn-primary" id="f2"><i class="fas fa-plus"></i><a
+          href="/SecretaryDashboard/Adminlist/AddAdmin"> Admin</a></button>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<br>
+
+<!-- Table Format -->
+<div class="table-content">
+  <table class="table">
+    <thead>
+      <tr>
+        <th> Name </th>
+        <th>Department</th>
+        <th> E-mail </th>
+        <th> Contact Number</th>
+        <th> userID </th>
+        <th> Password </th>
+      </tr>
+    </thead>
+    <tbody>
+     
+      {% if fil >= 1 %}
+      {% for i in admins %}
+
+      <tr>
+        <td> {{ i.name }}</td>
+        <td>{{ i.department }}</td>
+        <td> {{ i.email }}</td>
+        <td> {{ i.contact }}</td>
+        <td> {{ i.userID }}</td>
+        <td> {{ i.password }}</td>
+        
+      </tr>
+
+      {% endfor %}
+      <tr> <td colspan="6"> <a href="/SecretaryDashboard" class="btn btn-outline-primary">Back to advocates </a>  </td>   </tr>
+      {% endif %}
+
+
+
+      {% if length > 0 %}
+      {% for i in admins %}
+      <tr>
+        <td> {{ i.name }}</td>
+        <td>{{ i.department }}</td>
+        <td> {{ i.email }}</td>
+        <td> {{ i.contact }}</td>
+        <td> {{ i.userID }}</td>
+        <td> {{ i.password }}</td>
+    </tr>
+      {% endfor %}
+      {%endif%}
+      <tr>
+        <td colspan="6"> To add new Advocate. <a href="/SecretaryDashboard/Adminlist/AddAdmin">Click here </a>to add. </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

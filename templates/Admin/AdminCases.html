@@ -1,0 +1,133 @@
+{% extends 'Admin/AdminDashboard.html'%}
+{% load static %}
+{% block title %}Case | legal Wiz{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/Cases.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/filterForm.css' %}">
+<!-- Page Content -->
+<div class="wrapper">
+    <div class="title">
+        <div class="bd-title">
+            <h4>Cases {% if fc >= 1 %} ({{ fc }}) {% endif %} {% if length >= 0 %} ({{ length }}) {% endif %}</h4>
+        </div>
+        <div class="right-content">
+            <div class="filter-button">
+                <button class="btn filter" type="button" data-toggle="collapse" data-target="#collapseExample"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    Filter
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <p class="field-label">Case Number</p>
+                        <input type="text" class="form-control" placeholder="Ex.BIR/BIR/OS/2012" name="filter-caseno">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <p class="field-label">LC number</p>
+                        <input type="text" class="form-control" placeholder="Ex.LC22/0381/2013" name="filter-lcno">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <p class="field-label">Next Hearing :</p>
+                        <input type="date" class="form-control" name="filter-nh">
+                    </div>
+                </div>
+                <div class="form-group last">
+                    <a href="AdminDashboard/Admincases"><button type="submit" name="filter" value="Submit"
+                            class="btn">Submit</button></a>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+
+<!-- Table Format -->
+<div class="table-content">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width: 0;">Case number </th>
+                <th style="width: 0;">LC number</th>
+                <th style="width: 0;">Case Registration Date</th>
+                <th style="width: 0;">Next Hearing</th>
+                <th style="width: 0;">Opponent Name</th>
+                <th style="width: 0;">For full details</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% if fc >= 1 %}
+            {% for i in case %}
+
+            <tr>
+                <td> {{ i.case_number }}</td>
+                <td> {{ i.lc_number }}</td>
+                <td> {{ i.case_registration_date }}</td>
+                <td> {{ i.next_hearing_date }}</td>
+                <td> {{ i.res_name }}</td>
+                <td>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <a href="viewmore">
+                            <button type="submit" name="we" value="{{ i.case_number }}"
+                                class="btn btn-outline-secondary">View more</button>
+                        </a>
+                    </form>
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+            <tr>
+                <td colspan="6"> <a href="/AdminDashboard/Admincases" class="btn btn-outline-primary">Back to Cases </a> </td>
+            </tr>
+            {% endif %}
+            <!-- if there's any entry in database-->
+            {% if length > 0 %}
+
+            {% for i in case %}
+
+            <tr>
+                <td> {{ i.case_number }}</td>
+                <td> {{ i.lc_number }}</td>
+                <td> {{ i.case_registration_date }}</td>
+                <td> {{ i.next_hearing_date }}</td>
+                <td> {{ i.res_name }}</td>
+                <td>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <a href="viewmore">
+                            <button type="submit" name="we" value="{{i.case_number}}"
+                                class="btn btn-outline-secondary">View more</button>
+                        </a>
+                    </form>
+                </td>
+
+            </tr>
+
+            {% endfor %}
+            {% endif %}
+
+
+            <!-- if there's no entry in database-->
+            {% if length == 0 %}
+            <tr>
+                <td colspan="6"> No Cases created yet.</td>
+            </tr>
+            {% endif %}
+
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,357 @@
+{% extends 'Nodal_Officer/Dashboard.html'%}
+{% load static %}
+{% block title %}View Case | legal Wiz{% endblock %}
+{% block content %}
+<link rel="stylesheet"
+    href="{% static 'assets/css/viewmorecase.css' %}">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-grey.css">
+
+
+
+
+    {% for i in viewmore %}
+    {% if val == i.case_number %}
+
+
+   <section id="caseform" style="margin-top: 2rem;margin-left:2rem;margin-right:2rem">
+
+
+    <div class="card border-dark mb-3">
+        <div class="card-body">
+            <h2 style="text-align: center; margin-top:30px;font-weight:bold">Case Details</h2>
+
+            <hr>
+
+            <div class="form-row">
+                <div class="col-md-4">
+
+                    <label><mark class="bold">Type of Court</mark><mark class="red" style="background-color: white;">*</mark>
+                            :{{ i.type_of_court }}
+                    </label>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label><mark class="bold">
+                            Type of Case<mark class="red" style="background-color: white;">*</mark>
+                            :</mark>{{ i.type_of_case }}
+                    </label>
+
+                </div>
+
+                <div class="col-md-4">
+                    <label><mark class="bold">Case Number<mark class="red"
+                                style="background-color: white;">*</mark>:</mark>{{ i.case_number }}
+                    </label>
+
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4">
+                    <label><mark class="bold">Case Registration Date<mark class="red"
+                                style="background-color: white;">*</mark>:</mark>{{ i.case_registration_date }}</label>
+
+                </div>
+                <div class="col-md-4">
+
+                    <label>
+                        <mark class="bold">Court Name<mark class="red"
+                                style="background-color: white;">*</mark>:</mark>{{ i.court_name }}
+                    </label>
+
+
+
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault01"><mark class="bold">Case Receiving
+                            Date:</mark>{{ i.case_receiving_date}}</label>
+
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+
+                    <label><mark class="bold">Subject Matter<mark class="red"
+                                style="background-color: white;">*</mark>:</mark>{{ i.subject_matter}}
+                    </label>
+
+
+
+                </div>
+            </div>
+        
+        <div class="form-row">
+            <div class="col-md-4">
+                <label for="validationDefault01"><mark class="bold">LC Number<mark class="red"
+                            style="background-color: white;">*</mark>:</mark>
+                    {{ i.lc_number}}
+                </label>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <label>
+                    <mark class="bold">Section<mark class="red"
+                            style="background-color: white;">*</mark>:</mark>{{ i.section }}
+                </label>
+
+
+
+
+            </div>
+
+            <div class="col-md-4">
+                <label><mark class="bold">Previous Case Number: </mark> {{ i.previous_casenumber }}</label>
+
+            </div>
+
+        </div>
+        <div class="form-row">
+
+            <div class="col-md-4">
+                <label><mark class="bold">Respondent Appearance
+                        Date:</mark>{{ i.appearance_date_respondent }}
+                </label>
+
+            </div>
+            <div class="col-md-4">
+                <label><mark class="bold">PWC Due Date:</mark>{{ i.pwc_duedate }}</label>
+
+            </div>
+            <div class="col-md-4">
+                <label><mark class="bold">Due Date of Filling Reply :</mark>{{ i.duedate_filing }}</label>
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                <label><mark class="bold">Title<mark class="red"
+                            style="background-color: white;">*</mark>:</mark>{{ i.title }}
+                </label>
+
+            </div>
+            <div class="col-md-6">
+                <label><mark class="bold">Prayer<mark class="red"
+                            style="background-color: white;">*</mark>:</mark>{{ i.prayer}}
+                </label>
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                <label><mark class="bold">Filed by Corporation :</mark>{{ i.filedby_corporation }}</label>
+
+
+            </div>
+            <div class="col-md-4">
+                <label><mark class="bold">Stamp No. :</mark>{{ i.stamp_no}}</label>
+
+            </div>
+            <div class="col-md-4">
+                <label><mark class="bold">Respondent First Appearance :</mark>{{ i.first_apperance_petitioner}}</label>
+
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="col-md-4">
+                <label><mark class="bold">Represented by Co-ordinator :</mark>{{ i.represented_by_coordinator}}</label>
+
+
+            </div>
+            <div class="col-md-4">
+                <label><mark class="bold">Next Hearing Date :</mark>{{ i.next_hearing_date }}</label>
+
+            </div>
+            <div class="col-md-4">
+                <label><mark class="bold">Petitioner Counsel Name :</mark>{{ i.petitioner_counsel_name }}</label>
+
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <table style="width: 100%;text-align: center;">
+                    <tr class="table-active">
+                        <th>Petitioner/Plantiff/Appellant/Applicant</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="form-row">
+            <table class="table">
+
+                <tr class="table-active">
+                    <th style="width: 10%;">Is Govt. Employee?</th>
+                    <th style="width: 18%;">Name<mark class="tabred" style="background-color: #DADADA">*</mark></th>
+                    <th style="width: 35%;">Address</th>
+                    <th style="width: 15%;">Contact</th>
+                    <th style="width: 15%;">Department</th>
+
+                </tr>
+                <tr>
+                    <td>{{ i.app_isemployee }}</td>
+                    <td>{{ i.app_name}}</td>
+                    <td>{{ i.app_address }}</mark>
+                    </td>
+                    <td>{{ i.app_contact }}</td>
+                    <td>{{ i.app_dept }}</td>
+
+                </tr>
+
+            </table>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <table style="width: 100%;text-align: center;">
+                    <tr class="table-active">
+                        <th>Respondent/Defendant/Non-Applicant</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="form-row">
+            <table class="table">
+
+                <tr class="table-active">
+                    <th style="width: 10%;">Is Govt. Employee?</th>
+                    <th style="width: 18%;">Name<mark class="tabred" style="background-color: #DADADA">*</mark></th>
+                    <th style="width: 35%;">Address</th>
+                    <th style="width: 15%;">Contact</th>
+                    <th style="width: 15%;">Department</th>
+
+                </tr>
+                <tr>
+                    <td>{{ i.res_isemployee }}</td>
+                    <td>{{ i.res_name }}</td>
+                    <td>{{ i.res_address }}</td>
+                    <td>{{ i.res_contact }}</td>
+                    <td>{{ i.res_dept }}</td>
+
+                </tr>
+
+            </table>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <table style="width: 100%;text-align: center;">
+                    <tr class="table-active">
+                        <th>Assigned Department</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="form-row">
+            <table class="table">
+
+                <tr class="table-active">
+                    <th style="width: 10%;">Is Primary Dept?</th>
+                    <th style="width: 18%;">Department<mark class="tabred" style="background-color: #DADADA">*</mark>
+                    </th>
+                    <th style="width: 35%;">Assigned To<mark class="tabred" style="background-color: #DADADA">*</mark>
+                    </th>
+                    <th style="width: 15%;">Assigned on</th>
+                    <th style="width: 15%;">Date of Receipt of PWC</th>
+
+                </tr>
+                <tr>
+                    <td>{{ i.ass_isprimarydept }}
+
+
+                    </td>
+                    <td>{{ i.ass_dept }}</td>
+                    <td>{{ i.ass_assignedto }}</td>
+                    <td>{{ i.ass_assignedon }}</td>
+                    <td>{{ i.ass_date_receipt_pwc }}</td>
+
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-7">
+                <label for="validationDefault01">Remark :{{ i.remark }}</label>
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <table style="width: 100%;text-align: center;">
+                    <tr class="table-active">
+                        <th>Assign Standing Counsel</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3">
+                <label><mark class="bold">Standing Counsel<mark class="red"
+                            style="background-color:white">*</mark>:</mark>{{ i.standing_counsel }}</label>
+
+            </div>
+            <div class="col-md-3">
+                <label><mark class="bold">Assigned On :</mark>{{ i.standingcounsel_assignedon }}</label>
+
+            </div>
+            <div class="col-md-3">
+                <label><mark class="bold">Vakalatnama Filing Date :</mark>{{ i.vakalatnama_filingdate }}</label>
+
+            </div>
+            <div class="col-md-3">
+                <label><mark class="bold"> Date of Filling
+                        Reply :</mark>{{ i.date_of_filing_writtenstatement }}</label>
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <table style="width: 100%;">
+                    <tr class="table-active">
+                        <th>Is Senior Counsel Required :{{ i.standing_counsel_required}}
+
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12">
+                <table style="width: 100%;">
+                    <tr class="table-active">
+                        <th>Upload : <a href="{{ i.document.url }}" Download> {{i.document}}
+                            </a>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="sub" style=" display: flex; justify-content: center; ">
+            <a href="/Dashboard/cases">
+                <button type="submit"
+                    style="background-color:#253858;color: white;margin: 2rem;">Back
+                </button>
+            </a>
+
+        </div>
+
+
+
+
+    </div>
+
+    </div>
+
+    <h6><mark class="red-man">*Mandatory Field</mark></h6>
+</section>
+    {% endif %}
+    {% endfor %}
+
+    </form>
+
+
+    
+
+    {% endblock %}

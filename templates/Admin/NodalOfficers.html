@@ -1,0 +1,62 @@
+{% extends 'Admin/AdminDashboard.html'%}
+{% load static %}
+{% block title %}Add Nodal Officer | legal Wiz{% endblock %}
+{% block content %}
+<style>
+  hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+  }
+</style>
+<!-- Page Content -->
+<div class="container-fluid" style="font-family: 'Montserrat',sans-serif;">
+  <h3 style="text-align: center;margin-top: 30px;font-weight:bold">Add Nodal Officer</h3>
+  <p style="text-align: center;"> Fill following details to continue</p>
+  <hr>
+  <div class="row">
+    <div class="col-md-6" style="margin: 20px auto;">
+      <form method="POST" action="{% url  'createNodalOfficer' %}">
+        {% csrf_token %} 
+        <div class="form-group">
+          <label for="NOname">Name</label>
+          <input type="text" class="form-control" id="NOname" placeholder="Enter name" name="NOname"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="NOemail">Email Address</label>
+          <input type="email" class="form-control" id="NOemail" aria-describedby="emailHelp"
+            placeholder="Enter email" name="NOemail" required>
+        </div>
+        <div class="form-group">
+          <label for="NOcontact">Contact Number</label>
+          <input type="text" class="form-control" id="NOcontact" placeholder="Enter number"
+            name="NOcontact" required>
+        </div>
+        <div class="form-group">
+          <label for="NO_ID">UserID</label>
+          <input type="text" class="form-control" id="NO_ID"
+            placeholder="Enter userID" name="NO_ID" required>
+        </div>
+        <div class="form-group">
+          <label for="NOpass">Password</label>
+          <input type="password" class="form-control" id="NOpass" placeholder="Enter password"
+            name="NOpass" required>
+        </div>
+        <div class="form-group">
+          <label for="NOdept">Department</label>
+          <input type="text" class="form-control" id="NOdept" placeholder="Enter Department"
+            name="NOdept" required>
+        </div>
+        <div class="form-group">
+          <input type="hidden" class="form-control"
+            name="NOtype" value="NodalOfficer">
+        </div>
+        <button type="submit" class="btn"
+          style="margin: 40px auto 100px;display: block;background:#253858;color:white">Add Advocate to Database</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

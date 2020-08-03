@@ -13,8 +13,8 @@ urlpatterns = [
     path('submit/forgetpassword',views.forgetpassword,name="forgetpassword"),
     path('submit/resetpassword',views.resetpassword,name="resetpassword"),
     path('submit/verifyaccount',views.verifyaccount,name="verifyaccount"),
-    path('adminlogin',views.adminlogin,name="adminlogin"),
-    path('secretarylogin',views.secretarylogin,name="secretarylogin"),
+    # path('adminlogin',views.adminlogin,name="adminlogin"),
+    # path('secretarylogin',views.secretarylogin,name="secretarylogin"),
  
     # Dashboard URLs
     path('logout',views.logout,name="logout"),
@@ -34,9 +34,30 @@ urlpatterns = [
     path('Dashboard/cases',views.cases,name="cases"),
     path('Dashboard/Cases/addcase',views.addcase,name="addcase"),
 
-    
+    path('Dashboard/closecase',views.closecase,name="closecase"),
+    path('Dashboard/runningcase',views.runningcase,name="runningcase"),
+    path('id/',views.caseidform,name="id"),
 
-    
+
+    #Admin Dashboard URLs
+    path('AdminDashboard',views.AdminDashboard,name="AdminDashboard"),
+
+    path('AdminDashboard/Adminadvocates',views.Adminadvocates,name="Adminadvocates"), 
+    path('Adminadvocatefilter',views.Adminadvocatefilter,name="Adminadvocatefilter"),
+
+    path('AdminDashboard/Adminhearing',views.Adminhearing,name="Adminhearing"),
+
+    path('AdminDashboard/Admininvoice',views.Admininvoice,name="Admininvoice"),
+
+    path('AdminDashboard/Admincases',views.Admincases,name="Admincases"),
+    path('AdminDashboard/AddNodalOfficer',views.AddNodalOfficer,name="AddNodalOfficer"),
+    path('AdminDashboard/AddNodalOfficer/createNodalOfficer',views.createNodalOfficer,name="createNodalOfficer"),
+
+     # Secretary URLs
+    path('SecretaryDashboard',views.SecretaryDashboard,name="SecretaryDashboard"),
+    path('SecretaryDashboard/Adminlist',views.Adminlist,name="Adminlist"),
+    path('SecretaryDashboard/Adminlist/AddAdmin',views.AddAdmin,name="AddAdmin"),
+    path('SecretaryDashboard/Adminlist/AddAdmin/createAdmin',views.createAdmin,name="createAdmin")
 ]
 urlpatterns+=staticfiles_urlpatterns()
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

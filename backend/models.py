@@ -2,42 +2,21 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
-class Admin(models.Model):
+
+class Organization(models.Model):
     userID      = models.CharField(max_length=30,primary_key=True)
     email       = models.CharField(max_length=30)
     name        = models.CharField(max_length=50)
     contact     = models.CharField(max_length=15)
     department  = models.CharField(max_length=30)
     password    = models.CharField(max_length=50)
+    typee       = models.CharField(max_length=20)
 
     def __str__(self):
         return self.userID 
 
 
-class NodalOfficer(models.Model):
-    userID      = models.CharField(max_length=30,primary_key=True)
-    email       = models.CharField(max_length=30)
-    name        = models.CharField(max_length=50)
-    contact     = models.CharField(max_length=15)
-    department  = models.CharField(max_length=30)
-    password    = models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.userID 
-    
-
-class Invoice(models.Model):
-    in_date = models.CharField(max_length=20)
-    in_sub = models.CharField(max_length=50)
-    dept = models.CharField(max_length=50)
-    caseno = models.CharField(max_length=50)
-    lcno = models.CharField(max_length=50)
-    ad_na = models.CharField(max_length=50)
-    casetitle = models.CharField(max_length=20)
-    casetype = models.CharField(max_length=20)
-    in_particulars = models.CharField(max_length=500)
-    in_total = models.IntegerField()
-    in_due = models.IntegerField()    
 
 class Advocate(models.Model):
     email       = models.CharField(max_length=30)
@@ -49,15 +28,6 @@ class Advocate(models.Model):
     def __str__(self):
         return self.name  
 
-class Hearing(models.Model):
-    case_no       = models.CharField(max_length=30)
-    title        = models.CharField(max_length=50)
-    lastHearing     = models.CharField(max_length=30)
-    conclusion    = models.CharField(max_length=150)
-    nextHearing         = models.CharField(max_length=30)
-    department      = models.CharField(max_length=30)
-    def __str__(self):
-        return self.case_no
 
 
 
@@ -181,4 +151,31 @@ class AddCases(models.Model):
     ))
     document = models.FileField(null=True,blank=True)
 
-    
+class Invoice(models.Model):
+    in_date = models.CharField(max_length=50)
+    in_sub = models.CharField(max_length=50)
+    dept = models.CharField(max_length=50)
+    caseno = models.CharField(max_length=50)
+    lcno = models.CharField(max_length=50)
+    ad_na = models.CharField(max_length=50)
+    casetitle = models.CharField(max_length=20)
+    casetype = models.CharField(max_length=20)
+    in_particulars = models.CharField(max_length=500)
+    in_total = models.IntegerField()
+    in_due = models.IntegerField()    
+
+class Hearing(models.Model):
+    case_no       = models.CharField(max_length=50)
+    title        = models.CharField(max_length=50)
+    lastHearing     = models.CharField(max_length=30)
+    conclusion    = models.CharField(max_length=150, null=True, blank=True)
+    file = models.FileField(null=True, blank=True)
+    nextHearing         = models.CharField(max_length=30, null=True, blank=True)
+    department      = models.CharField(max_length=30)
+    # status = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, choices=(
+        ('Closed', 'Closed'),
+        ('Running', 'Running')
+    ), default='Closed')
+    def __str__(self):
+        return self.case_no

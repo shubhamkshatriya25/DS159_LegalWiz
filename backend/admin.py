@@ -4,10 +4,8 @@ from django.contrib import admin
 from .models import *
 # from .models import NodalOfficer, Invoice
 
-admin.site.register(NodalOfficer)
-
+admin.site.register(Organization)
 admin.site.register(Invoice)
-admin.site.register(Admin)
 admin.site.register(Hearing)
 admin.site.register(AddCases)
 admin.site.register(Advocate)

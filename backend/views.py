@@ -1,16 +1,23 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse,JsonResponse
 from .models import *
-from .models import NodalOfficer, Invoice, Advocate
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from .models import AddCases
 # Create your views here.
 
 #home page
+def caseidform(request):
+    if request.method=="POST":
+        id = request.POST["id"]
+        data = get_object_or_404(AddCases,case_number = id)
+    return render(request, 'Nodal_Officer/addHearing.html',{'data':data})
+
+
 def index(request):
     return render(request, 'index.html')
 
@@ -19,70 +26,41 @@ def about(request):
 
 
 def signIn(request):
-
     if request.user.is_authenticated:
-        return redirect('/admin')
-    elif request.session.get('officer', False):
+        return redirect('/SecretaryDashboard')
+    elif request.session.get('user', False):
         return render(request,'Nodal_Officer/Dashboard.html')
+
     elif request.session.get('admin', False):
-        return render(request,'Dashboard.html')
+        return render(request,'Admin/AdminDashboard.html')
     else: 
-        officer = NodalOfficer.objects.all()
-        admin = Admin.objects.all()
-        args = {
-            'officer': officer,
-            'admin': admin,
-        }
-        return render(request,'sign-in.html',args)
+        return render(request,'sign-in.html')
 
 def submit(request):
     userID = request.POST['UserID']
     password = request.POST['pwd']
-    dept = request.POST['dept']
     dic = {}
-    officer = NodalOfficer.objects.get(userID=userID)
-    if officer.password == password and officer.department == dept:
-        request.session['officer'] = userID
-        return render(request,'Nodal_Officer/Dashboard.html')
+    if Organization.objects.filter(userID=userID,password=password).exists():
+        user = Organization.objects.get(userID=userID,password=password)
+        user_dept = user.department
+        user_type = user.typee
+        if user_type == 'NodalOfficer':
+            request.session['user'] = userID
+            return render(request,'Nodal_Officer/Dashboard.html')
+        elif user_type == "Admin":
+            request.session['user'] = userID
+            return render(request,'Nodal_Officer/Dashboard.html')
     else:
-        dic['failure'] = True
-        return render(request,'sign-in.html',dic)
-   
-
-def adminlogin(request):
-    userID = request.POST['UserID']
-    password = request.POST['pwd']
-    dept = request.POST['dept']
-    dic = {}
-    admin = Admin.objects.get(userID=userID)
-    if admin.password == password and admin.department == dept:
-        request.session['admin'] = userID
-        return render(request,'Dashboard.html')
-    else:
-        dic['failure'] = True
-        return render(request,'sign-in.html',dic)
-    # userID = request.POST['UserID']
-    # password = request.POST['pwd']
-    # dic = {}
-    # user = auth.authenticate(username=userID,password=password)
-    # if user is not None:
-    #     login(request,user)
-    #     return redirect('/admin')
-    # else:
-    #     dic['failure'] = True
-    #     return render(request,'sign-in.html',dic)
-
-def secretarylogin(request):
-    userID = request.POST['UserID']
-    password = request.POST['pwd']
-    dic = {}
-    user = auth.authenticate(username=userID,password=password)
-    if user is not None:
-        login(request,user)
-        return redirect('/admin')
-    else:
-        dic['failure'] = True
-        return render(request,'sign-in.html',dic)
+        dic = {}
+        user = auth.authenticate(username=userID,password=password)
+        if user is not None:
+            login(request,user)
+            case = AddCases.objects.all()
+            return render(request,'Secretary/SecretaryDashboard.html',{'case':case})
+        else:
+            dic['failure'] = True
+            return render(request,'sign-in.html',dic)
+        
 
 
 def logout_view(request):
@@ -126,7 +104,7 @@ def resetpassword(request):
 
 
 def advocates(request):
-    if request.session.get('officer', False):
+    if request.session.get('user', False):
         advocates = Advocate.objects.all()
         length = len(advocates)
         return render(request,'Nodal_Officer/Advocate.html',{'advocates':advocates, 'length':length})
@@ -134,45 +112,42 @@ def advocates(request):
         return redirect('/')
 
 def Dashboard(request):
-    if request.session.get('officer', False):
+    if request.session.get('user', False):
         return render(request,'Nodal_Officer/Dashboard.html')
 
 def addAdvocate(request):
-    if request.session.get('officer', False):
+    if request.session.get('user', False):
         return render(request,'Nodal_Officer/addAdvocate.html')
 
 def logout(request):
-    if request.session.get('officer', False):
-        del request.session['officer']
-        return redirect('/')
-    if request.session.get('admin', False):
-        del request.session['admin']
+    if request.session.get('user', False):
+        del request.session['user']
         return redirect('/')
 
 def hearing(request):
-    if request.session.get('officer', False):
+    if request.session.get('user', False):
         if request.POST.get('filter', False):
             ctitle = request.POST.get('casetitle', False)
             caseno = request.POST.get('caseno', False)
-            clast = request.POST.get('lastdate', False)
+            clast = request.POST.get('nextdate', False)
             if ctitle or caseno or clast:
                 if ctitle and caseno and clast:
-                    hear = Hearing.objects.filter(title=ctitle, case_no=caseno, lastHearing=clast)
+                    hear = Hearing.objects.filter(title=ctitle, case_no=caseno, nextHearing=clast)
                     fil = len(hear)
                 elif ctitle and caseno:
                     hear = Hearing.objects.filter(title=ctitle, case_no=caseno)
                     fil = len(hear)
                 elif ctitle and clast:
-                    hear = Hearing.objects.filter(title=ctitle, lastHearing=clast)
+                    hear = Hearing.objects.filter(title=ctitle, nextHearing=clast)
                     fil = len(hear)
                 elif caseno and clast:
-                    hear = Hearing.objects.filter(case_no=caseno, lastHearing=clast)
+                    hear = Hearing.objects.filter(case_no=caseno, nextHearing=clast)
                     fil = len(hear)              
                 elif caseno:
                     hear = Hearing.objects.filter(case_no=caseno)
                     fil = len(hear)
                 elif clast:
-                    hear = Hearing.objects.filter(lastHearing=clast)
+                    hear = Hearing.objects.filter(nextHearing=clast)
                     fil = len(hear)
                 elif ctitle:
                     hear = Hearing.objects.filter(title=ctitle)
@@ -180,8 +155,18 @@ def hearing(request):
         
             return render(request,'Nodal_Officer/Hearing.html',{'hear':hear, 'fil':fil})
             
+        elif request.POST.get('view', False):
+            val = request.POST.get('view', False)
+            #print(val)
+            hear = Hearing.objects.filter(case_no=val).order_by('-nextHearing')
+        
+            args = { 'hear': hear
+                }
+        
+            return render(request, 'viewhear.html', args)
+    
         else :
-            hear = Hearing.objects.all()
+            hear = Hearing.objects.all().order_by('-nextHearing')
             length = len(hear)
 
             args = {'hear': hear,
@@ -192,11 +177,10 @@ def hearing(request):
         return redirect('/')
 
 def addHearing(request):
-    if request.session.get('officer', False):
+    if request.session.get('user', False):
         if request.POST.get('clear', False) :
             return render(request, 'Nodal_Officer/addHearing.html')
    
-    
         elif request.POST.get('submit', False) :
         
             a1 = request.POST.get('caseno', False)
@@ -205,10 +189,12 @@ def addHearing(request):
             a4 = request.POST.get('lastdate', False)
             a5 = request.POST.get('conclusion', False)
             a6 = request.POST.get('nextdate', False)
-              
-        
+            # a7 = request.POST.get('run', False)
+            # a8 = request.POST.get('close', False)
+            a7 = request.POST.get('status', False)
+            a9 = request.FILES.get('file', False)
     
-            if a1 and a2 and a3 and a4 and a5 and a6:
+            if a1 and a2 and a3 and a4 and a5 and a7:
                 hear = Hearing()
                 hear.case_no = a1
                 hear.title = a2
@@ -216,8 +202,12 @@ def addHearing(request):
                 hear.lastHearing = a4
                 hear.conclusion = a5
                 hear.nextHearing =a6
-            
-          
+                hear.status = a7
+                # if a7:
+                #     hear.status = a7
+                # else :
+                #     hear.status= a8
+                hear.file = a9
                 hear.save()
                 
                 # return render(request, 'Nodal_Officer/Hearing.html')
@@ -228,7 +218,6 @@ def addHearing(request):
                     'length': length }
     
                 return render(request, 'Nodal_Officer/Hearing.html', args)
-
             else:
                 dic = {}
                 dic['failure'] = True
@@ -238,7 +227,7 @@ def addHearing(request):
             return render(request, 'Nodal_Officer/addHearing.html')
 
 def createAdvocate(request):
-    if request.session.get('officer', False):
+    if request.session.get('user', False):
         name = request.POST['LawyerName']
         email = request.POST['LawyerEmail']
         contact = request.POST['LawyerContact']
@@ -292,7 +281,7 @@ def advocatefilter(request):
 def invoice(request):  
     
     #for filter invoice
-    if request.session.get('officer', False):
+    if request.session.get('user', False):
         if request.POST.get('filter', False):
             advocate = request.POST.get('fil_ad', False)
             caseno = request.POST.get('fil_case', False)
@@ -347,7 +336,7 @@ def invoice(request):
 
 def addinvoice(request):
     
-    if request.session.get('officer', False):
+    if request.session.get('user', False):
         if request.POST.get('clear', False) :
             return render(request, 'Nodal_Officer/invoiceForm.html')
    
@@ -436,7 +425,7 @@ def cases(request):
                 'val': val}
         return render(request, 'viewmorecase.html', args)
     else:
-        case=AddCases.objects.all()
+        case=AddCases.objects.all().order_by('-next_hearing_date')
         length=len(case)
         args={"case":case,"length":length}
         return render(request,'Nodal_Officer/Cases.html',args)
@@ -449,7 +438,7 @@ def cases(request):
    
 
 def addcase(request):
-    if request.session.get('officer',False):
+    if request.session.get('user',False):
         if request.POST.get('cancel',False):
             return render(request,'Nodal_Officer/Cases.html')
         elif request.POST.get('save',False):
@@ -551,4 +540,361 @@ def addcase(request):
         else:
             return render(request,'Nodal_Officer/addcase.html')
 
+def closecase(request):
+    if request.session.get('officer',False):
+        if request.POST.get('filter', False):
+            ctitle = request.POST.get('casetitle', False)
+            caseno = request.POST.get('caseno', False)
+            clast = request.POST.get('lastdate', False)
+            if ctitle or caseno or clast:
+                if ctitle and caseno and clast:
+                    hear = Hearing.objects.filter(title=ctitle, case_no=caseno, lastHearing=clast).order_by("-lastHearing")
+                    fil = len(hear)
+                elif ctitle and caseno:
+                    hear = Hearing.objects.filter(title=ctitle, case_no=caseno).order_by("-lastHearing")
+                    fil = len(hear)
+                elif ctitle and clast:
+                    hear = Hearing.objects.filter(title=ctitle, lastHearing=clast).order_by("-lastHearing")
+                    fil = len(hear)
+                elif caseno and clast:
+                    hear = Hearing.objects.filter(case_no=caseno, lastHearing=clast).order_by("-lastHearing")
+                    fil = len(hear)              
+                elif caseno:
+                    hear = Hearing.objects.filter(case_no=caseno).order_by("-lastHearing")
+                    fil = len(hear)
+                elif clast:
+                    hear = Hearing.objects.filter(lastHearing=clast).order_by("-lastHearing")
+                    fil = len(hear)
+                elif ctitle:
+                    hear = Hearing.objects.filter(title=ctitle).order_by("-lastHearing")
+                    fil = len(hear)
+                return render(request,'Nodal_Officer/closecase.html',{'hear':hear, 'fil':fil})
+                
+        else:
+            hear = Hearing.objects.all().order_by("-lastHearing")
+            length = len(hear)
 
+            args = {'hear': hear,'length': length }
+        return render(request,'Nodal_Officer/closecase.html',args)
+
+def runningcase(request):
+    if request.session.get('officer',False):
+        if request.POST.get('filter', False):
+            ctitle = request.POST.get('casetitle', False)
+            caseno = request.POST.get('caseno', False)
+            clast = request.POST.get('lastdate', False)
+            if ctitle or caseno or clast:
+                if ctitle and caseno and clast:
+                    hear = Hearing.objects.filter(title=ctitle, case_no=caseno, lastHearing=clast).order_by("-lastHearing")
+                    fil = len(hear)
+                elif ctitle and caseno:
+                    hear = Hearing.objects.filter(title=ctitle, case_no=caseno).order_by("-lastHearing")
+                    fil = len(hear)
+                elif ctitle and clast:
+                    hear = Hearing.objects.filter(title=ctitle, lastHearing=clast).order_by("-lastHearing")
+                    fil = len(hear)
+                elif caseno and clast:
+                    hear = Hearing.objects.filter(case_no=caseno, lastHearing=clast).order_by("-lastHearing")
+                    fil = len(hear)              
+                elif caseno:
+                    hear = Hearing.objects.filter(case_no=caseno).order_by("-lastHearing")
+                    fil = len(hear)
+                elif clast:
+                    hear = Hearing.objects.filter(lastHearing=clast).order_by("-lastHearing")
+                    fil = len(hear)
+                elif ctitle:
+                    hear = Hearing.objects.filter(title=ctitle).order_by("-lastHearing")
+                    fil = len(hear)
+                return render(request,'Nodal_Officer/runningcase.html',{'hear':hear, 'fil':fil})
+                
+        else:
+            hear = Hearing.objects.all().order_by("-lastHearing")
+            length = len(hear)
+            
+
+            args = {'hear': hear,'length': length }
+            return render(request,'Nodal_Officer/runningcase.html',args)
+
+
+
+#Admin Function
+
+
+def AdminDashboard(request):
+    if request.session.get('admin', False):
+        return render(request,'Admin/AdminDashboard.html')
+
+def Adminadvocates(request):
+    if request.session.get('admin', False):
+        advocates = Advocate.objects.all()
+        length = len(advocates)
+        return render(request,'Admin/AdminAdvocate.html',{'advocates':advocates, 'length':length})
+    else:
+        return redirect('/')
+
+def Adminadvocatefilter(request):
+    name = request.POST['Filter-name']
+    email = request.POST['Filter-email']
+    contact = request.POST['Filter-contact']
+    if name or email or contact:
+        if name and email and contact:
+            advocates = Advocate.objects.filter(name=name,email=email,contact=contact)
+            fil = len(advocates)
+        elif name and email:
+            advocates = Advocate.objects.filter(name=name,email=email)
+            fil = len(advocates)
+        elif name and contact:
+            advocates = Advocate.objects.filter(name=name,contact=contact)
+            fil = len(advocates)
+        elif contact and email:
+            advocates = Advocate.objects.filter(contact=contact,email=email)  
+            fil = len(advocates)  
+        elif email:
+            advocates = Advocate.objects.filter(email=email)
+            fil = len(advocates)
+        elif contact:
+            advocates = Advocate.objects.filter(contact=contact)
+            fil = len(advocates)
+        elif name:
+            advocates = Advocate.objects.filter(name=name)
+            fil = len(advocates)
+        
+        return render(request,'Admin/AdminAdvocate.html',{'advocates':advocates, 'fil':fil})
+    else:
+        advocates = Advocate.objects.all()
+        length = len(advocates)
+        return render(request,'Admin/AdminAdvocate.html',{'advocates':advocates, 'length': length})
+
+
+def Adminhearing(request):
+    if request.session.get('admin', False):
+        if request.POST.get('filter', False):
+            ctitle = request.POST.get('casetitle', False)
+            caseno = request.POST.get('caseno', False)
+            clast = request.POST.get('lastdate', False)
+            if ctitle or caseno or clast:
+                if ctitle and caseno and clast:
+                    hear = Hearing.objects.filter(title=ctitle, case_no=caseno, lastHearing=clast)
+                    fil = len(hear)
+                elif ctitle and caseno:
+                    hear = Hearing.objects.filter(title=ctitle, case_no=caseno)
+                    fil = len(hear)
+                elif ctitle and clast:
+                    hear = Hearing.objects.filter(title=ctitle, lastHearing=clast)
+                    fil = len(hear)
+                elif caseno and clast:
+                    hear = Hearing.objects.filter(case_no=caseno, lastHearing=clast)
+                    fil = len(hear)
+                elif caseno:
+                    hear = Hearing.objects.filter(case_no=caseno)
+                    fil = len(hear)
+                elif clast:
+                    hear = Hearing.objects.filter(lastHearing=clast)
+                    fil = len(hear)
+                elif ctitle:
+                    hear = Hearing.objects.filter(title=ctitle)
+                    fil = len(hear)
+
+            return render(request, 'Admin/AdminHearing.html', {'hear': hear, 'fil': fil})
+
+        else:
+            hear = Hearing.objects.all()
+            length = len(hear)
+
+            args = {'hear': hear,
+                    'length': length}
+
+            return render(request, 'Admin/AdminHearing.html', args)
+    else:
+        return redirect('/')
+
+
+def Admininvoice(request):
+    # for filter invoice
+    if request.session.get('admin', False):
+        if request.POST.get('filter', False):
+            advocate = request.POST.get('fil_ad', False)
+            caseno = request.POST.get('fil_case', False)
+            lcno = request.POST.get('fil_lc', False)
+            if advocate or caseno or lcno:
+                if advocate and caseno and lcno:
+                    invoice = Invoice.objects.filter(ad_na=advocate, caseno=caseno, lcno=lcno)
+                    fil = len(invoice)
+                elif advocate and caseno:
+                    invoice = Invoice.objects.filter(ad_na=advocate, caseno=caseno)
+                    fil = len(invoice)
+                elif advocate and lcno:
+                    invoice = Invoice.objects.filter(ad_na=advocate, lcno=lcno)
+                    fil = len(invoice)
+                elif caseno and lcno:
+                    invoice = Invoice.objects.filter(caseno=caseno, lcno=lcno)
+                    fil = len(invoice)
+                elif caseno:
+                    invoice = Invoice.objects.filter(caseno=caseno)
+                    fil = len(invoice)
+                elif lcno:
+                    invoice = Invoice.objects.filter(lcno=lcno)
+                    fil = len(invoice)
+                elif advocate:
+                    invoice = Invoice.objects.filter(ad_na=advocate)
+                    fil = len(invoice)
+
+                return render(request, 'Admin/AdminInvoice.html', {'invoice': invoice, 'fil': fil})
+
+        # view more button
+        elif request.POST.get('view', False):
+
+            val = request.POST.get('view', False)
+            # print(val)
+            invoice = Invoice.objects.all()
+
+            args = {'invoice': invoice,
+                    'val': val}
+
+            return render(request, 'Admin/viewmore.html', args)
+
+        else:
+            invoice = Invoice.objects.all()
+            length = len(invoice)
+
+            args = {'invoice': invoice,
+                    'length': length}
+
+            return render(request, 'Admin/AdminInvoice.html', args)
+
+def Admincases(request):
+    if request.POST.get('filter',False):
+        caseno = request.POST.get('filter-caseno',False)
+        lcno = request.POST.get('filter-lcno',False)
+        nh = request.POST.get('filter-nh',False)
+        if caseno or lcno or nh:
+            if caseno and lcno and nh:
+                case = AddCases.objects.filter(case_number=caseno,lc_number=lcno,next_hearing_date=nh)
+                fc = len(case)
+            elif caseno and lcno:
+                case = AddCases.objects.filter(case_number=caseno,lc_number=lcno)
+                fc = len(case)
+            elif caseno and nh:
+                case = AddCases.objects.filter(case_number=caseno,next_hearing_date=nh)
+                fc = len(case)
+            elif nh and lcno:
+                case = AddCases.objects.filter(next_hearing_date=nh,lc_number=lcno)   
+                fc = len(case) 
+            elif lcno:
+                case = AddCases.objects.filter(lc_number=lcno)
+                fc = len(case)
+                print(fc)
+            elif nh:
+                case = AddCases.objects.filter(next_hearing_date=nh)
+                fc = len(case)
+            elif caseno:
+                case = AddCases.objects.filter(case_number=caseno)
+                fc = len(case)
+               
+            return render(request,'Admin/AdminCases.html',{'case':case,'fc':fc})
+
+    elif request.POST.get('we', False) :
+        val = request.POST.get('we', False)
+        viewmore = AddCases.objects.all()
+        args = { 'viewmore': viewmore,
+                'val': val}
+        return render(request, 'Admin/viewmorecase.html', args)
+    else:
+        case=AddCases.objects.all().order_by('-next_hearing_date')
+        length=len(case)
+        args={"case":case,"length":length}
+        return render(request,'Admin/AdminCases.html',args)
+        
+def AddNodalOfficer(request):
+    return render(request,'Admin/NodalOfficers.html')
+
+def createNodalOfficer(request):
+    name = request.POST['NOname']
+    email = request.POST['NOemail']
+    contact = request.POST['NOcontact']
+    userID = request.POST['NO_ID']
+    pwd = request.POST['NOpass']
+    dept = request.POST['NOdept']
+    typee = request.POST['NOtype']
+
+    NO = Organization()
+    NO.name = name
+    NO.email = email
+    NO.contact = contact
+    NO.userID = userID
+    NO.password = pwd
+    NO.department = dept
+    NO.typee = typee
+    NO.save()
+    return redirect('/AdminDashboard')
+        
+def SecretaryDashboard(request):
+    if request.POST.get('secretaryfilter',False):
+        caseno = request.POST.get('filter-caseno',False)
+        lcno = request.POST.get('filter-lcno',False)
+        nh = request.POST.get('filter-nh',False)
+        if caseno or lcno or nh:
+            if caseno and lcno and nh:
+                case = AddCases.objects.filter(case_number=caseno,lc_number=lcno,next_hearing_date=nh)
+                fc = len(case)
+            elif caseno and lcno:
+                case = AddCases.objects.filter(case_number=caseno,lc_number=lcno)
+                fc = len(case)
+            elif caseno and nh:
+                case = AddCases.objects.filter(case_number=caseno,next_hearing_date=nh)
+                fc = len(case)
+            elif nh and lcno:
+                case = AddCases.objects.filter(next_hearing_date=nh,lc_number=lcno)   
+                fc = len(case) 
+            elif lcno:
+                case = AddCases.objects.filter(lc_number=lcno)
+                fc = len(case)
+                print(fc)
+            elif nh:
+                case = AddCases.objects.filter(next_hearing_date=nh)
+                fc = len(case)
+            elif caseno:
+                case = AddCases.objects.filter(case_number=caseno)
+                fc = len(case)
+               
+            return render(request,'Secretary/SecretaryDashboard.html',{'case':case,'fc':fc})
+
+    elif request.POST.get('we', False):
+        val = request.POST.get('we', False)
+        viewmore = AddCases.objects.all()
+        hearing = Hearing.objects.all()
+        args = { 'viewmore': viewmore,'val': val,'hearing':hearing}
+        return render(request, 'Secretary/Secretaryviewmorecase.html', args)
+    else:
+        case=AddCases.objects.all().order_by('-next_hearing_date')
+        length=len(case)
+        args={"case":case,"length":length}
+        return render(request,'Secretary/SecretaryDashboard.html',args)
+
+def Adminlist(request):
+    admins = Organization.objects.filter(typee='Admin')
+    length = len(admins)
+    return render(request,'Secretary/Adminlist.html',{'admins':admins,'length':length})
+
+def AddAdmin(request):
+    return render(request,'Secretary/addAdmin.html')
+
+def createAdmin(request):
+    name = request.POST['Adminname']
+    email = request.POST['Adminemail']
+    contact = request.POST['Admincontact']
+    userID = request.POST['AdminID']
+    pwd = request.POST['Adminpass']
+    dept = request.POST['Admindept']
+    typee = request.POST['Admintype']
+
+    admin = Organization()
+    admin.name = name
+    admin.email = email
+    admin.contact = contact
+    admin.userID = userID
+    admin.password = pwd
+    admin.department = dept
+    admin.typee = typee
+    admin.save()
+    return redirect('SecretaryDashboard/Adminlist')

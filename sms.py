@@ -35,11 +35,11 @@ def job():
             cur.execute("SELECT case_no, title FROM backend_hearing WHERE nextHearing='"+str(i)+"' and conclusion='"+str(j)+"'")
             r = cur.fetchall()
                         
-            account_sid = 'ACee6ec8d2c1aaxxxxxxxxxxxxxxxxx'
-            auth_token = '5a96e76da74c177xxxxxxxxxxxxxxxxx'
+            account_sid = 'xxxxxxxxxxxxxxxxx'
+            auth_token = 'xxxxxxxxxxxxxxxxx'
             client = Client(account_sid, auth_token)
 
-            subject = 'LegalWiz account password reset'
+            subject = 'LegalWiz'
             message = "Your case number: "+str(r[0][0])+", and case title: "+str(r[0][1])+", is scheduled on: "+str(i)
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [user, ]
@@ -59,8 +59,8 @@ def job():
             cur.execute("SELECT case_no, title FROM backend_hearing WHERE nextHearing='"+str(i)+"' and conclusion='"+str(j)+"'")
             r = cur.fetchall()
                         
-            account_sid = 'ACee6ec8d2c1aaa9xxxxxxxxxxxxxxxxx'
-            auth_token = '5a96e76da74c177xxxxxxxxxxxxxxxxx'
+            account_sid = 'xxxxxxxxxxxxxxxxx'
+            auth_token = 'xxxxxxxxxxxxxxxxx'
             client = Client(account_sid, auth_token)
             # print(r[0][0])
             # print(r[0][1])
@@ -79,16 +79,16 @@ def job():
             cur.execute("SELECT case_no, title FROM backend_hearing WHERE nextHearing='"+str(i)+"' and conclusion='"+str(j)+"'")
             r = cur.fetchall()
             
-            account_sid = '5a96e76da74c177xxxxxxxxxxxxxxxxx'
-            auth_token = '5a96e76da74c177xxxxxxxxxxxxxxxxx'
+            account_sid = 'xxxxxxxxxxxxxxxxx'
+            auth_token = 'xxxxxxxxxxxxxxxxx'
             client = Client(account_sid, auth_token)
             # print(r[0][0])
             # print(r[0][1])
             message = client.messages \
                 .create(
                         body="Your case number: "+str(r[0][0])+", and case title: "+str(r[0][1])+", is scheduled on: "+str(i),
-                        from_='+14752566797',
-                        to='+917228801122'
+                        from_='+xxxxxxxxxxxxxxxxx',
+                        to='+xxxxxxxxxxxxxxxxx'
                     )
 
             print(message.sid)

@@ -48,8 +48,8 @@ def submit(request):
             request.session['user'] = userID
             return render(request,'Nodal_Officer/Dashboard.html')
         elif user_type == "Admin":
-            request.session['user'] = userID
-            return render(request,'Nodal_Officer/Dashboard.html')
+            request.session['admin'] = userID
+            return render(request,'Admin/AdminDashboard.html')
     else:
         dic = {}
         user = auth.authenticate(username=userID,password=password)
@@ -122,6 +122,9 @@ def addAdvocate(request):
 def logout(request):
     if request.session.get('user', False):
         del request.session['user']
+        return redirect('/')
+    elif request.session.get('admin', False):
+        del request.session['admin']
         return redirect('/')
 
 def hearing(request):

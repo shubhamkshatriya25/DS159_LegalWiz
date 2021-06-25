@@ -49,7 +49,7 @@ pickleshare==0.7.5
 prometheus-client==0.9.0
 prompt-toolkit==3.0.8
 pycparser==2.20
-Pygments==2.7.3
+Pygments==2.7.4
 PyJWT==1.7.1
 pylint==2.5.3
 pyparsing==2.4.7

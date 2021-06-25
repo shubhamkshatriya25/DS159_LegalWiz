@@ -30,7 +30,6 @@ def signIn(request):
         return redirect('/SecretaryDashboard')
     elif request.session.get('user', False):
         return render(request,'Nodal_Officer/Dashboard.html')
-
     elif request.session.get('admin', False):
         return render(request,'Admin/AdminDashboard.html')
     else: 

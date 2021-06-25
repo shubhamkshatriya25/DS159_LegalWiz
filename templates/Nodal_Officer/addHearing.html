@@ -9,8 +9,6 @@
     <hr>
     <div class="row">
         <div class="col-md-6" style="margin: 20px auto;">
-
-
         <form method="post", action = "{% url 'id' %} " >
             <div class="form-group">
                 {%  csrf_token %}
@@ -21,7 +19,6 @@
         </form>
             <form method="POST">
                 {% csrf_token %}
-
                 <div class="form-group">
                     <label>Case Number</label>
                     <input type="text" value="{% if data %}{{ data.case_number }}{% endif %}" class="form-control"
